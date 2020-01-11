@@ -1,6 +1,5 @@
-# TODO
+# TODO sa afisez numarul de mutari corect
 # TODO sa afisez bine scorul jucatorului si al calculatorului
-# TODO sa intreb daca e ok afisarea tablei de joc
 # TODO sa calculez scorul pentru starile intermediare cum a zis Irina
 
 
@@ -10,13 +9,14 @@ import psutil
 import os
 import sys
 
+# tabla initiala
 board = [['#' for x in range(5)] for y in range(3)]
 board[0][1] = 'c'
 board[1][0] = 'c'
 board[2][1] = 'c'
 board[1][4] = 'i'
-illegal_moves = [(0, 0), (2, 0), (0, 4), (2, 4)]
-ADANCIME_MAX = 6
+illegal_moves = [(0, 0), (2, 0), (0, 4), (2, 4)]  # colturile matricei care nu vor fi afisate
+ADANCIME_MAX = 0
 nr_mutari_jucator = 0
 nr_mutari_calculator = 0
 scor_jucator = 0
@@ -48,9 +48,9 @@ def valid_moves_hounds(linie_curenta, col_curenta, linie_mutare, col_mutare):
 
 
 def valid_moves_hare(linie_curenta, col_curenta, linie_mutare, col_mutare):
-    if abs(linie_curenta - linie_mutare) + abs(col_curenta - col_mutare) == 1:
+    if abs(linie_curenta - linie_mutare) + abs(col_curenta - col_mutare) == 1:  # mutare sus-jos, stanga-dreapta
         return True
-    if linie_curenta == linie_mutare + 1 and col_curenta == col_mutare - 1:  # muutare pe diagonala sprea dreapta in sus
+    if linie_curenta == linie_mutare + 1 and col_curenta == col_mutare - 1:  # mutare pe diagonala sprea dreapta in sus
         return True
     if linie_curenta == linie_mutare - 1 and col_curenta == col_mutare - 1:  # mutare pe diagonala spre dreapta in jos
         return True
@@ -76,11 +76,17 @@ def verificare_castig(tabla):
     linie_caine3, coloana_caine3 = pozitii_caini[2][0], pozitii_caini[2][1]
 
     # verificam daca iepurele a ajuns in stanga catelusilor
-    # TODO: sa consider caz de castig pt iepure si cand a trecut de 2 caini si a mai ramas unul pe aceeasi coloana cu iepurele
     if coloana_iepure < coloana_caine1 and coloana_iepure < coloana_caine2 \
             and coloana_iepure < coloana_caine3:
         return 'i'
-
+    # iepurele castiga si daca doi caini sunt in dreapta lui iar unul este pe aceeasi coloana
+    if coloana_iepure == coloana_caine1 and coloana_iepure < coloana_caine2 and coloana_iepure < coloana_caine3:
+        return 'i'
+    if coloana_iepure == coloana_caine2 and coloana_iepure < coloana_caine1 and coloana_iepure < coloana_caine3:
+        return 'i'
+    if coloana_iepure == coloana_caine3 and coloana_iepure < coloana_caine2 and coloana_iepure < coloana_caine1:
+        return 'i'
+    # verificam daca iepurele e inchis
     if pozitie_iepure == (1, 4) and coloana_caine1 == coloana_caine2 == coloana_caine3 == 3:
         if linie_caine1 == 0 and linie_caine2 == 1 and linie_caine3 == 2:
             return 'c'
@@ -130,9 +136,6 @@ def dist_iepure_caini(tabla):
 
 
 class Joc:
-    """
-    Clasa care defineste jocul. Se va schimba de la un joc la altul.
-    """
     JMIN = None
     JMAX = None
     GOL = '#'
@@ -143,42 +146,34 @@ class Joc:
     def final(self):
         return verificare_castig(self.matr)
 
-    def mutari(self, jucator_opus):  # daca e caine, gandesc pt iepure
+    def mutari(self, jucator_opus):
         l_mutari = []
         for i in range(len(self.matr)):
             for j in range(len(self.matr[i])):
                 if self.matr[i][j] == self.__class__.GOL and (i, j) not in illegal_moves:
                     if jucator_opus == 'i':
                         pozitie_iepure = [(index, row.index('i')) for index, row in enumerate(self.matr) if 'i' in row]
-                        # print("Iepure:", pozitie_iepure)
                         if valid_moves_hare(pozitie_iepure[0][0], pozitie_iepure[0][1], i, j):
-                            matr_tabla_noua = copy.deepcopy(self.matr)
-                            matr_tabla_noua[i][j] = jucator_opus
-                            matr_tabla_noua[pozitie_iepure[0][0]][pozitie_iepure[0][1]] = Joc.GOL
-                            l_mutari.append(Joc(matr_tabla_noua))
+                            self.creare_tabla_noua(pozitie_iepure[0][0], pozitie_iepure[0][1], i, j, jucator_opus, l_mutari)
                     else:
                         pozitii_caini = poz_caini(self.matr)
-                        # print("Caini: ", pozitii_caini)
                         linie1, col1 = pozitii_caini[0]
                         linie2, col2 = pozitii_caini[1]
                         linie3, col3 = pozitii_caini[2]
                         if valid_moves_hounds(linie1, col1, i, j):
-                            matr_tabla_noua = copy.deepcopy(self.matr)
-                            matr_tabla_noua[i][j] = jucator_opus
-                            matr_tabla_noua[linie1][col1] = Joc.GOL
-                            l_mutari.append(Joc(matr_tabla_noua))
+                            self.creare_tabla_noua(linie1, col1, i, j, jucator_opus, l_mutari)
                         if valid_moves_hounds(linie2, col2, i, j):
-                            matr_tabla_noua = copy.deepcopy(self.matr)
-                            matr_tabla_noua[i][j] = jucator_opus
-                            matr_tabla_noua[linie2][col2] = Joc.GOL
-                            l_mutari.append(Joc(matr_tabla_noua))
+                            self.creare_tabla_noua(linie2, col2, i, j, jucator_opus, l_mutari)
                         if valid_moves_hounds(linie3, col3, i, j):
-                            matr_tabla_noua = copy.deepcopy(self.matr)
-                            matr_tabla_noua[i][j] = jucator_opus
-                            matr_tabla_noua[linie3][col3] = Joc.GOL
-                            l_mutari.append(Joc(matr_tabla_noua))
+                            self.creare_tabla_noua(linie3, col3, i, j, jucator_opus, l_mutari)
 
         return l_mutari
+
+    def creare_tabla_noua(self, linie_curenta, col_curenta, linie_mutare, col_mutare, jucator_opus, l_mutari):
+        matr_tabla_noua = copy.deepcopy(self.matr)
+        matr_tabla_noua[linie_mutare][col_mutare] = jucator_opus
+        matr_tabla_noua[linie_curenta][col_curenta] = Joc.GOL
+        l_mutari.append(Joc(matr_tabla_noua))
 
     # def linii_deschise_iepure(self, lista, jucator):
     #
@@ -213,13 +208,6 @@ class Joc:
 
 
 class Stare:
-    """
-    Clasa folosita de algoritmii minimax si alpha-beta
-    Are ca proprietate tabla de joc
-    Functioneaza cu conditia ca in cadrul clasei Joc sa fie definiti JMIN si JMAX (cei doi jucatori posibili)
-    De asemenea cere ca in clasa Joc sa fie definita si o metoda numita mutari() care ofera lista cu configuratiile posibile
-    in urma mutarii unui jucator
-    """
 
     def __init__(self, tabla_joc, j_curent, adancime, parinte=None, scor=None):
         self.tabla_joc = tabla_joc
@@ -260,7 +248,7 @@ class Stare:
         return l_stari_mutari
 
     def __str__(self):
-        sir = str(self.tabla_joc) + "\n(Juc curent:" + self.j_curent + ")\n"
+        sir = str(self.tabla_joc) + "\n(Jucator curent:" + self.j_curent + ")\n"
         return sir
 
 
@@ -277,9 +265,6 @@ def min_max(stare):
 
     # aplic algoritmul minimax pe toate mutarile posibile (calculand astfel subarborii lor)
     mutari_scor = [min_max(mutare) for mutare in stare.mutari_posibile]
-    if mutari_scor == []:
-        print("STARE CAND MUTARI == []:", stare)
-        print(stare.tabla_joc)
 
     if stare.j_curent == Joc.JMAX:
         # daca jucatorul e JMAX aleg starea-fiica cu scorul maxim
@@ -360,22 +345,10 @@ def main():
     global scor_calculator
     global scor_jucator
     # initializare algoritm
-    raspuns_valid = False
-    while not raspuns_valid:
-        tip_algoritm = input("Algoritmul folosit? (raspundeti cu 1 sau 2)\n 1.Minimax\n 2.Alpha-beta\n ")
-        if tip_algoritm in ['1', '2']:
-            raspuns_valid = True
-        else:
-            print("Nu ati ales o varianta corecta.")
+    tip_algoritm = citire_tip_algoritm()
     # initializare jucatori
-    raspuns_valid = False
-    while not raspuns_valid:
-        Joc.JMIN = input("Doriti sa jucati cu c sau cu i? ").lower()
-        if Joc.JMIN in ['c', 'i']:
-            raspuns_valid = True
-        else:
-            print("Raspunsul trebuie sa fie c sau i.")
-    Joc.JMAX = 'i' if Joc.JMIN == 'c' else 'c'
+    citire_jucator()
+    alege_dificultate()
 
     # initializare tabla
     tabla_curenta = Joc()
@@ -387,7 +360,7 @@ def main():
 
     while True:
         if stare_curenta.j_curent == Joc.JMIN:
-            # check_if_exit(stare_curenta) # TREBUIE DECOMENTATA.
+            # check_if_exit() # TODO TREBUIE DECOMENTATA.
             # muta jucatorul
             if Joc.JMIN == 'c':
                 linie_de_mutat, col_de_mutat = ce_caine_mut(stare_curenta)
@@ -409,11 +382,12 @@ def main():
             print("\nTabla dupa mutarea jucatorului")
             print(str(stare_curenta))
             scor_jucator = stare_curenta.scor
+            nr_mutari_jucator += 1
             if not afis_daca_final(stare_curenta):
                 stare_curenta.j_curent = stare_curenta.jucator_opus()
             else:
                 break
-            nr_mutari_jucator += 1
+
 
         # --------------------------------
         else:  # jucatorul e JMAX (calculatorul)
@@ -442,10 +416,32 @@ def main():
             scor_calculator = stare_curenta.scor
 
 
-def check_if_exit(stare_curenta):
-    exit = input("Vreti sa iesiti din joc? Raspundeti cu da sau nu.\n")
+def citire_jucator():
+    raspuns_valid = False
+    while not raspuns_valid:
+        Joc.JMIN = input("Doriti sa jucati cu c sau cu i? ").lower()
+        if Joc.JMIN in ['c', 'i']:
+            raspuns_valid = True
+        else:
+            print("Raspunsul trebuie sa fie c sau i.")
+    Joc.JMAX = 'i' if Joc.JMIN == 'c' else 'c'
+
+
+def citire_tip_algoritm():
+    raspuns_valid = False
+    tip_algoritm = None
+    while not raspuns_valid:
+        tip_algoritm = input("Algoritmul folosit? (raspundeti cu 1 sau 2)\n 1.Minimax\n 2.Alpha-beta\n ")
+        if tip_algoritm in ['1', '2']:
+            raspuns_valid = True
+        else:
+            print("Nu ati ales o varianta corecta.")
+    return tip_algoritm
+
+
+def check_if_exit():
+    exit = ''
     while exit.lower() not in ['da', 'nu']:
-        print('Nu ati introdus o optiune valida')
         exit = input("Vreti sa iesiti din joc? Raspundeti cu da sau nu.\n")
     if exit.lower() == 'da':
         print("Scor jucator: ", scor_jucator)
@@ -453,8 +449,24 @@ def check_if_exit(stare_curenta):
         sys.exit(0)
 
 
+def alege_dificultate():
+    global ADANCIME_MAX
+    dificultate = 0
+    while dificultate not in ['1', '2', '3']:
+        dificultate = input("Alegeti nivelul de dificultate. Introduceti 1 pentru incepator, 2 pentru mediu sau 3 "
+                            "pentru avansat.\n")
+
+    if dificultate == 1:
+        ADANCIME_MAX = 3
+    elif dificultate == 2:
+        ADANCIME_MAX = 6
+    else:
+        ADANCIME_MAX = 9
+
+
 def ce_caine_mut(stare_curenta):
     raspuns_valid_mutare_caine = False
+    linie_de_mutat, col_de_mutat = None, None
     while not raspuns_valid_mutare_caine:
         try:
             linie_de_mutat = int(input("Linia catelului de mutat = "))
@@ -475,6 +487,7 @@ def ce_caine_mut(stare_curenta):
 
 def obtine_linie_coloana(stare_curenta):
     raspuns_valid = False
+    coloana, linie = None, None
     while not raspuns_valid:
         try:
             linie = int(input("linie="))
@@ -493,9 +506,8 @@ def obtine_linie_coloana(stare_curenta):
     return coloana, linie
 
 
-t_final = time.time()
-milis = round(1000 * (t_final - t_initial))
-print("Timp total rulare program: {}".format(milis))
-
 if __name__ == "__main__":
     main()
+    t_final = time.time()
+    milis = round(1000 * (t_final - t_initial))
+    print("Timp total rulare program: {}".format(milis))

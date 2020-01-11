@@ -151,7 +151,7 @@
       <workItem from="1578487183355" duration="22957000" />
       <workItem from="1578652792287" duration="3845000" />
       <workItem from="1578665115962" duration="7711000" />
-      <workItem from="1578733234820" duration="28683000" />
+      <workItem from="1578733234820" duration="36751000" />
     </task>
     <servers />
   </component>
@@ -171,22 +171,22 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="421" y="97" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1578761558468" />
-    <state width="1237" height="451" key="GridCell.Tab.0.bottom" timestamp="1578767671775">
+    <state width="1237" height="371" key="GridCell.Tab.0.bottom" timestamp="1578779203295">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="451" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1578767671775" />
-    <state width="1237" height="451" key="GridCell.Tab.0.center" timestamp="1578767671774">
+    <state width="1237" height="371" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1578779203295" />
+    <state width="1237" height="371" key="GridCell.Tab.0.center" timestamp="1578779203294">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="451" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1578767671774" />
-    <state width="1237" height="451" key="GridCell.Tab.0.left" timestamp="1578767671774">
+    <state width="1237" height="371" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1578779203294" />
+    <state width="1237" height="371" key="GridCell.Tab.0.left" timestamp="1578779203294">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="451" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1578767671774" />
-    <state width="1237" height="451" key="GridCell.Tab.0.right" timestamp="1578767671775">
+    <state width="1237" height="371" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1578779203294" />
+    <state width="1237" height="371" key="GridCell.Tab.0.right" timestamp="1578779203294">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="451" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1578767671775" />
+    <state width="1237" height="371" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1578779203294" />
     <state width="1237" height="225" key="GridCell.Tab.1.bottom" timestamp="1578761263339">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -203,6 +203,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state width="1237" height="225" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1578761263339" />
+    <state x="456" y="276" key="ReplaceDuplicatesPrompt" timestamp="1578772622408">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="456" y="276" key="ReplaceDuplicatesPrompt/0.0.1280.680@0.0.1280.680" timestamp="1578772622408" />
     <state x="337" y="166" key="com.intellij.ide.util.TipDialog" timestamp="1578665115953">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -217,34 +221,34 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tema3.py</url>
-          <line>422</line>
+          <line>396</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tema3.py</url>
-          <line>400</line>
+          <line>373</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tema3.py</url>
-          <line>423</line>
+          <line>397</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tema3.py</url>
-          <line>295</line>
-          <option name="timeStamp" value="11" />
+          <line>365</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/tema3.py</url>
-          <line>392</line>
-          <option name="timeStamp" value="13" />
+          <line>280</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Tema_3___Hare_and_hounds$tema3.coverage" NAME="tema3 Coverage Results" MODIFIED="1578767671753" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Tema_3___Hare_and_hounds$tema3.coverage" NAME="tema3 Coverage Results" MODIFIED="1578779099448" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Tema_3___Hare_and_hounds$hounds_and_hare.coverage" NAME="hounds_and_hare Coverage Results" MODIFIED="1578517801406" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Tema_3___Hare_and_hounds$test.coverage" NAME="test Coverage Results" MODIFIED="1578688682159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
