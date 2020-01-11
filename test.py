@@ -1,21 +1,33 @@
 import numpy as np
+import copy
+
+board = [[0 for x in range(5)] for y in range(3)]
+m = copy.deepcopy(board)
+m[0][0] = 2
+print(board)
+
+
+
+
+board = [['0' for x in range(5)] for y in range(3)]
+
 
 board = [['0' for x in range(5)] for y in range(3)]
 
 """ Set hound position with value 1"""
-board[0][1] = 'c1'
-board[1][0] = 'c2'
-board[2][1] = 'c3'
+board[0][1] = 'c'
+board[1][0] = 'c'
+board[2][1] = 'c'
 
 """ Set hare position with value 2 """
 board[1][4] = 'i'
 
 pozitie_iepure = [(index, row.index('i')) for index, row in enumerate(board) if 'i' in row]
-pozitie_c1 = [(index, row.index('c1')) for index, row in enumerate(board) if 'c1' in row]
-pozitie_c2 = [(index, row.index('c2')) for index, row in enumerate(board) if 'c2' in row]
-pozitie_c3 = [(index, row.index('c3')) for index, row in enumerate(board) if 'c3' in row]
-print("iepure ", pozitie_iepure)
-print(pozitie_c2)
+pozitii_caini = [(index, row.index('c')) for index, row in enumerate(board) if 'c' in row]
+linie1, col1 = pozitii_caini[2]
+print("linie ", linie1)
+print("coloana ", col1)
+print(pozitii_caini)
 
 ls = [1] * 9
 print("ls ", ls)

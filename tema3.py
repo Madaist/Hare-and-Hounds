@@ -1,4 +1,5 @@
 import time
+import copy
 
 board = [['#' for x in range(5)] for y in range(3)]
 board[0][1] = 'c'
@@ -24,6 +25,11 @@ def valid_moves_hounds(linie_curenta, col_curenta, linie_mutare, col_mutare):
 def valid_moves_hare(linie_curenta, col_curenta, linie_mutare, col_mutare):
     if abs(linie_curenta - linie_mutare) + abs(col_curenta - col_mutare) == 1:
         return True
+    if linie_curenta == linie_mutare + 1 and col_curenta == col_mutare + 1:
+        return True
+    if linie_curenta == linie_mutare - 1 and col_curenta == col_mutare + 1:
+        return True
+
     return False
 
 
@@ -33,26 +39,67 @@ def d_manhattan(xy1, xy2):
 
 def verificare_castig(board):
     pozitie_iepure = [(index, row.index('i')) for index, row in enumerate(board) if 'i' in row]
-    pozitii_caini = [(index, row.index('c')) for index, row in enumerate(board) if 'c' in row]
+
+    pozitii_caini = poz_caini(board)
 
     # verificam daca iepurele a ajuns in stanga catelusilor
     coloana_iepure = pozitie_iepure[0][1]
     coloana_caine1 = pozitii_caini[0][1]
     coloana_caine2 = pozitii_caini[1][1]
     coloana_caine3 = pozitii_caini[2][1]
-
-    if coloana_iepure < coloana_caine1 and coloana_iepure < coloana_caine2 and coloana_iepure < coloana_caine3:
+    linie_caine1 = pozitii_caini[0][0]
+    linie_caine2 = pozitii_caini[1][0]
+    linie_caine3 = pozitii_caini[2][0]
+    if coloana_iepure < coloana_caine1 and coloana_iepure < coloana_caine2 \
+            and coloana_iepure < coloana_caine3:
         return 'i'
+
+    if pozitie_iepure == (1, 4) and coloana_caine1 == coloana_caine2 == coloana_caine3 == 3:
+        if linie_caine1 == 0 and linie_caine2 == 1 and linie_caine3 == 2:
+            return True
+        if linie_caine1 == 1 and linie_caine2 == 2 and linie_caine3 == 0:
+            return True
+        if linie_caine1 == 2 and linie_caine2 == 1 and linie_caine3 == 0:
+            return True
+
+    if pozitie_iepure == (0, 2):
+        if pozitii_caini[0] == (0, 1) and pozitii_caini[1] == (0, 3) and pozitii_caini[2] == (1, 2):
+            return True
+        if pozitii_caini[0] == (0, 3) and pozitii_caini[1] == (1, 2) and pozitii_caini[2] == (0, 1):
+            return True
+        if pozitii_caini[0] == (1, 2) and pozitii_caini[1] == (0, 1) and pozitii_caini[2] == (0, 3):
+            return True
+
+    if pozitie_iepure == (2, 2):
+        if pozitii_caini[0] == (2, 1) and pozitii_caini[1] == (1, 2) and pozitii_caini[2] == (2, 3):
+            return True
+        if pozitii_caini[0] == (1, 2) and pozitii_caini[1] == (2, 3) and pozitii_caini[2] == (2, 1):
+            return True
+        if pozitii_caini[0] == (2, 3) and pozitii_caini[1] == (2, 1) and pozitii_caini[2] == (1, 2):
+            return True
+
+    return False
+
+
+def poz_caini(board):
+    pozitii_caini = []
+    for i in range(len(board)):
+        for j in range(len(board[i])):
+            if board[i][j] == 'c':
+                pozitii_caini.append((i, j))
+    return pozitii_caini
+
+
+def dist_iepure_caini(tabla):
+    pozitie_iepure = [(index, row.index('i')) for index, row in enumerate(tabla) if 'i' in row]
+    pozitii_caini = poz_caini(tabla)
 
     # calculam distantele Manhattan de la iepure la caini
     d1 = d_manhattan(pozitie_iepure[0], pozitii_caini[0])
     d2 = d_manhattan(pozitie_iepure[0], pozitii_caini[1])
     d3 = d_manhattan(pozitie_iepure[0], pozitii_caini[2])
-    # daca distantele sunt 1, iepurele este blocat
-    if d1 == d2 == d3 == 1:
-        return 'c'
 
-    return False
+    return d1 + d2 + d3
 
 
 class Joc:
@@ -69,26 +116,53 @@ class Joc:
     def final(self):
         return verificare_castig(self.matr)
 
-    def mutari(self, jucator_opus):  # trebuie schimbata ca sa mut doar unde am voie !!!
+    def mutari(self, jucator_opus): # daca e caine, gandesc pt iepure
+        # jucator_curent = 'c' if jucator_opus == 'i' else 'i'
+
         l_mutari = []
         for i in range(len(self.matr)):
             for j in range(len(self.matr[i])):
                 if self.matr[i][j] == self.__class__.GOL and (i, j) not in illegal_moves:
-                    matr_tabla_noua = self.matr
-                    matr_tabla_noua[i][j] = jucator_opus
-                    l_mutari.append(Joc(matr_tabla_noua))
+                    if jucator_opus == 'i':
+                        pozitie_iepure = [(index, row.index('i')) for index, row in enumerate(self.matr) if 'i' in row]
+                        # print("Iepure:", pozitie_iepure)
+                        if valid_moves_hare(pozitie_iepure[0][0], pozitie_iepure[0][1], i, j):
+                            matr_tabla_noua = copy.deepcopy(self.matr)
+                            matr_tabla_noua[i][j] = jucator_opus
+                            matr_tabla_noua[pozitie_iepure[0][0]][pozitie_iepure[0][1]] = Joc.GOL
+                            l_mutari.append(Joc(matr_tabla_noua))
+                    else:
+                        pozitii_caini = poz_caini(self.matr)
+                        # print("Caini: ", pozitii_caini)
+                        linie1, col1 = pozitii_caini[0]
+                        linie2, col2 = pozitii_caini[1]
+                        linie3, col3 = pozitii_caini[2]
+                        if valid_moves_hounds(linie1, col1, i, j):
+                            matr_tabla_noua = copy.deepcopy(self.matr)
+                            matr_tabla_noua[i][j] = jucator_opus
+                            matr_tabla_noua[linie1][col1] = Joc.GOL
+                            l_mutari.append(Joc(matr_tabla_noua))
+                        if valid_moves_hounds(linie2, col2, i, j):
+                            matr_tabla_noua = copy.deepcopy(self.matr)
+                            matr_tabla_noua[i][j] = jucator_opus
+                            matr_tabla_noua[linie2][col2] = Joc.GOL
+                            l_mutari.append(Joc(matr_tabla_noua))
+                        if valid_moves_hounds(linie3, col3, i, j):
+                            matr_tabla_noua = copy.deepcopy(self.matr)
+                            matr_tabla_noua[i][j] = jucator_opus
+                            matr_tabla_noua[linie3][col3] = Joc.GOL
+                            l_mutari.append(Joc(matr_tabla_noua))
+
         return l_mutari
 
-    def dist_iepure_caini(self):
-        pozitie_iepure = [(index, row.index('i')) for index, row in enumerate(board) if 'i' in row]
-        pozitii_caini = [(index, row.index('c')) for index, row in enumerate(board) if 'c' in row]
+    def linii_deschise_iepure(self, lista, jucator):
 
-        # calculam distantele Manhattan de la iepure la caini
-        d1 = d_manhattan(pozitie_iepure, pozitii_caini[0])
-        d2 = d_manhattan(pozitie_iepure, pozitii_caini[1])
-        d3 = d_manhattan(pozitie_iepure, pozitii_caini[2])
+        return 0
 
-        return d1 + d2 + d3
+
+
+
+
 
     # def estimeaza_scor(self, adancime):
     #     t_final = self.final()
@@ -150,10 +224,8 @@ class Stare:
         elif t_final == Joc.JMIN:
             return -99 - adancime
         else:
-            if self.j_curent == Joc.JMAX:
-                return Joc.dist_iepure_caini(self.tabla_joc)
-            else:
-                return -Joc.dist_iepure_caini(self.tabla_joc)
+            # return 0
+            return dist_iepure_caini(self.tabla_joc.matr)  # aici trebuie schimbat oricum
 
     def jucator_opus(self):
         if self.j_curent == Joc.JMIN:
@@ -281,8 +353,8 @@ def main():
 
     # creare stare initiala
     stare_curenta = Stare(tabla_curenta, 'c', ADANCIME_MAX)
-    continua = True
-    while continua:
+
+    while True:
         if stare_curenta.j_curent == Joc.JMIN:
             # muta jucatorul
             if Joc.JMIN == 'c':
@@ -294,7 +366,8 @@ def main():
                 stare_curenta.tabla_joc.matr[linie][coloana] = Joc.JMIN
                 stare_curenta.tabla_joc.matr[linie_de_mutat][col_de_mutat] = Joc.GOL
             else:
-                pozitie_iepure = [(index, row.index('i')) for index, row in enumerate(stare_curenta.tabla_joc.matr) if 'i' in row]
+                pozitie_iepure = [(index, row.index('i'))
+                                  for index, row in enumerate(stare_curenta.tabla_joc.matr) if 'i' in row]
                 coloana, linie = obtine_linie_coloana(stare_curenta)
                 while not valid_moves_hare(pozitie_iepure[0][0], pozitie_iepure[0][1], linie, coloana):
                     print("Iepurele poate sari o singura piesa")
@@ -306,14 +379,13 @@ def main():
             if not afis_daca_final(stare_curenta):
                 stare_curenta.j_curent = stare_curenta.jucator_opus()
             else:
-                continua = False
+                break
 
 
 
 
         # --------------------------------
         else:  # jucatorul e JMAX (calculatorul)
-            while True:
                 # Mutare calculator
 
                 # preiau timpul in milisecunde de dinainte de mutare
@@ -343,7 +415,8 @@ def ce_caine_mut(stare_curenta):
         try:
             linie_de_mutat = int(input("Linia catelului de mutat = "))
             col_de_mutat = int(input("Coloana catelului de mutat = "))
-            if linie_de_mutat in range(0, 3) and col_de_mutat in range(0, 5):
+            if linie_de_mutat in range(0, 3) and col_de_mutat in range(0, 5) \
+                    and (linie_de_mutat, col_de_mutat) not in illegal_moves:
                 # trebuie sa verific ca pozitia sa nu fie in illegal moves
                 if stare_curenta.tabla_joc.matr[linie_de_mutat][col_de_mutat] != 'c':
                     print("Nu exista caine pe pozitia data")
@@ -363,8 +436,7 @@ def obtine_linie_coloana(stare_curenta):
             linie = int(input("linie="))
             coloana = int(input("coloana="))
 
-            if linie in range(0, 3) and coloana in range(0, 5):
-                # trebuie sa verific ca pozitia sa nu fie in illegal moves
+            if linie in range(0, 3) and coloana in range(0, 5) and (linie, coloana) not in illegal_moves:
                 if stare_curenta.tabla_joc.matr[linie][coloana] == Joc.GOL:
                     raspuns_valid = True
                 else:

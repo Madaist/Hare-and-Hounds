@@ -2,6 +2,7 @@ import sys
 import numpy as np
 from scipy.spatial.distance import cityblock
 import math
+import copy
 
 board = np.zeros((3, 5))
 
