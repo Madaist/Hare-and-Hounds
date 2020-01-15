@@ -1,7 +1,5 @@
 # TODO sa afisez bine scorul jucatorului si al calculatorului
 # TODO sa calculez scorul pentru starile intermediare cum a zis Irina
-# TODO sa declar castig pt iepure daca cateii au mutat doar vertical de 10 ori consecutiv
-
 
 import time
 import copy
@@ -22,6 +20,7 @@ nr_mutari_calculator = 0
 scor_jucator = 0
 scor_calculator = 0
 maxMem = 0
+nr_mutari_verticale = 0  # numarul de mutari verticale consecutive ale cainilor
 t_initial = time.time()
 
 
@@ -59,6 +58,13 @@ def valid_moves_hare(linie_curenta, col_curenta, linie_mutare, col_mutare):
     if linie_curenta == linie_mutare - 1 and col_curenta == col_mutare + 1:  # muutare pe diagonala sprea stanga in jos
         return True
 
+    return False
+
+
+def verificare_mutare_verticala(linie_curenta, col_curenta, linie_mutare, col_mutare):
+    if col_curenta == col_mutare:
+        if linie_curenta == linie_mutare + 1 or linie_curenta == linie_mutare - 1:
+            return True
     return False
 
 
@@ -330,11 +336,24 @@ def afis_daca_final(stare_curenta):
     return False
 
 
+def verif_mutare_verticala_matrici(matrice_anterioara, matrice_actualizata):
+    poz_caini_anterioara = poz_caini(matrice_anterioara)
+    poz_caini_actual = poz_caini(matrice_actualizata)
+
+    prev_pos = [x for x in poz_caini_anterioara if x not in poz_caini_actual]
+    actual_pos = [x for x in poz_caini_actual if x not in poz_caini_anterioara]
+
+    if verificare_mutare_verticala(prev_pos[0][0], prev_pos[0][1], actual_pos[0][0], actual_pos[0][1]):
+        return True
+    return False
+
+
 def main():
     global nr_mutari_jucator
     global nr_mutari_calculator
     global scor_calculator
     global scor_jucator
+    global nr_mutari_verticale
     # initializare algoritm
     tip_algoritm = citire_tip_algoritm()
     # initializare jucatori
@@ -359,6 +378,13 @@ def main():
                 while not valid_moves_hounds(linie_de_mutat, col_de_mutat, linie, coloana):
                     print("Catelusii pot merge doar verticala, orizontala si diagonala de la stanga la dreapta")
                     coloana, linie = obtine_linie_coloana(stare_curenta)
+                if verificare_mutare_verticala(linie_de_mutat, col_de_mutat, linie, coloana):
+                    nr_mutari_verticale += 1
+                else:
+                    nr_mutari_verticale = 0
+                if nr_mutari_verticale == 10:
+                    print('Iepurele a castigat. Cainii au mutat de 10 ori consecutiv pe verticala')
+                    break  # TODO MAI TREBUIE AFISAT SI SCORUL
                 stare_curenta.tabla_joc.matr[linie][coloana] = Joc.JMIN
                 stare_curenta.tabla_joc.matr[linie_de_mutat][col_de_mutat] = Joc.GOL
             else:
@@ -373,13 +399,12 @@ def main():
             print("\nTabla dupa mutarea jucatorului")
             print(str(stare_curenta))
             nr_mutari_jucator += 1
-            scor_jucator = stare_curenta.scor
+            scor_jucator += int(stare_curenta.scor or 0)
 
             if not afis_daca_final(stare_curenta):
                 stare_curenta.j_curent = stare_curenta.jucator_opus()
             else:
                 break
-
 
         # --------------------------------
         else:  # jucatorul e JMAX (calculatorul)
@@ -391,20 +416,29 @@ def main():
                 stare_actualizata = min_max(stare_curenta)
             else:  # tip_algoritm==2
                 stare_actualizata = alpha_beta(-500, 500, stare_curenta)
+            matrice_curenta = copy.deepcopy(stare_curenta.tabla_joc.matr)
             stare_curenta.tabla_joc = stare_actualizata.stare_aleasa.tabla_joc
+            matrice_actualizata = copy.deepcopy(stare_curenta.tabla_joc.matr)
+            if verif_mutare_verticala_matrici(matrice_curenta, matrice_actualizata):
+                nr_mutari_verticale += 1
+            else:
+                nr_mutari_verticale = 0
+            if nr_mutari_verticale == 10:
+                print('Iepurele a castigat. Cainii au mutat de 10 ori consecutiv pe verticala')
+                break  # TODO MAI TREBUIE AFISAT SI SCORUL
             print("Tabla dupa mutarea calculatorului")
             print(str(stare_curenta))
             nr_mutari_calculator += 1
             # preiau timpul in milisecunde de dupa mutare
             t_dupa = int(round(time.time() * 1000))
-            print("Calculatorul a \"gandit\" timp de " + str(t_dupa - t_inainte) + " milisecunde.")
+            print("Calculatorul a \"gandit\" timp de " + str((t_dupa - t_inainte)/1000) + " secunde.")
             print("Memoria folosita pentru mutare", maxMem)
+            scor_calculator += stare_curenta.scor
             if afis_daca_final(stare_curenta):
                 break
 
             # S-a realizat o mutare. Schimb jucatorul cu cel opus
             stare_curenta.j_curent = stare_curenta.jucator_opus()
-            scor_calculator = stare_curenta.scor
 
 
 def citire_jucator():
@@ -501,4 +535,4 @@ if __name__ == "__main__":
     main()
     t_final = time.time()
     milis = round(1000 * (t_final - t_initial))
-    print("Timp total rulare program: {}".format(milis))
+    print("Timp total rulare program: {} secunde".format(milis/1000))

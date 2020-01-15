@@ -1,4 +1,6 @@
-l4 = [1,2,3]
-l5 = [3,2,1]
-if set(l4) == set(l5):
-    print("da")
+l1 = [(1, 1), (2, 2), (3, 3)]
+l2 = [(1, 1), (2, 2), (4, 4)]
+temp1 = [x for x in l1 if x not in l2]
+temp2 = [x for x in l2 if x not in l1]
+print(temp1)
+print(temp2)

@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="dd3370b8-7c5d-4d31-91f4-da5d49c9c389" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hounds_and_hare.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/tema3.py" beforeDir="false" afterPath="$PROJECT_DIR$/tema3.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
@@ -53,7 +52,7 @@
       <recent name="C:\Facultate\Anul 3 - Semestrul 1\Inteligenta artificiala\LABORATOARE IRINA\Tema 3 - Hare and hounds" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.tema3">
     <configuration name="hounds_and_hare" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Tema 3 - Hare and hounds" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -157,7 +156,7 @@
       <workItem from="1578847886248" duration="71000" />
       <workItem from="1578948318552" duration="1776000" />
       <workItem from="1578991211831" duration="1745000" />
-      <workItem from="1579091720148" duration="5439000" />
+      <workItem from="1579091720148" duration="13696000" />
     </task>
     <servers />
   </component>
@@ -173,10 +172,10 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="196" y="95" key="#xdebugger.XInspectDialog/0.0.1280.680@0.0.1280.680" timestamp="1578745128931" />
-    <state x="400" y="51" key="#xdebugger.evaluate" timestamp="1579100709303">
+    <state x="310" y="65" key="#xdebugger.evaluate" timestamp="1579101633417">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="400" y="51" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1579100709303" />
+    <state x="310" y="65" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1579101633417" />
     <state width="807" height="449" key="DebuggerActiveHint" timestamp="1579100751589">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -185,38 +184,38 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="421" y="97" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1578848138524" />
-    <state width="1237" height="250" key="GridCell.Tab.0.bottom" timestamp="1579101325542">
+    <state width="1237" height="252" key="GridCell.Tab.0.bottom" timestamp="1579110403396">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="250" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1579101325542" />
-    <state width="1237" height="250" key="GridCell.Tab.0.center" timestamp="1579101325542">
+    <state width="1237" height="252" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1579110403396" />
+    <state width="1237" height="252" key="GridCell.Tab.0.center" timestamp="1579110403396">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="250" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1579101325542" />
-    <state width="1237" height="250" key="GridCell.Tab.0.left" timestamp="1579101325541">
+    <state width="1237" height="252" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1579110403396" />
+    <state width="1237" height="252" key="GridCell.Tab.0.left" timestamp="1579110403396">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="250" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1579101325541" />
-    <state width="1237" height="250" key="GridCell.Tab.0.right" timestamp="1579101325542">
+    <state width="1237" height="252" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1579110403396" />
+    <state width="1237" height="252" key="GridCell.Tab.0.right" timestamp="1579110403396">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="250" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1579101325542" />
-    <state width="1237" height="172" key="GridCell.Tab.1.bottom" timestamp="1579101197613">
+    <state width="1237" height="252" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1579110403396" />
+    <state width="1237" height="222" key="GridCell.Tab.1.bottom" timestamp="1579101898767">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="172" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1579101197613" />
-    <state width="1237" height="172" key="GridCell.Tab.1.center" timestamp="1579101197613">
+    <state width="1237" height="222" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1579101898767" />
+    <state width="1237" height="222" key="GridCell.Tab.1.center" timestamp="1579101898767">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="172" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1579101197613" />
-    <state width="1237" height="172" key="GridCell.Tab.1.left" timestamp="1579101197613">
+    <state width="1237" height="222" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1579101898767" />
+    <state width="1237" height="222" key="GridCell.Tab.1.left" timestamp="1579101898767">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="172" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1579101197613" />
-    <state width="1237" height="172" key="GridCell.Tab.1.right" timestamp="1579101197613">
+    <state width="1237" height="222" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1579101898767" />
+    <state width="1237" height="222" key="GridCell.Tab.1.right" timestamp="1579101898767">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="172" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1579101197613" />
+    <state width="1237" height="222" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1579101898767" />
     <state x="456" y="276" key="ReplaceDuplicatesPrompt" timestamp="1578772622408">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -237,11 +236,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/tema3.py</url>
-          <line>260</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <breakpoint enabled="true" type="python-exception">
           <properties notifyOnTerminate="true" exception="builtins.AttributeError">
             <option name="notifyOnTerminate" value="true" />
@@ -252,8 +246,8 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Tema_3___Hare_and_hounds$tema3.coverage" NAME="tema3 Coverage Results" MODIFIED="1579100618536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Tema_3___Hare_and_hounds$tema3.coverage" NAME="tema3 Coverage Results" MODIFIED="1579109933316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Tema_3___Hare_and_hounds$hounds_and_hare.coverage" NAME="hounds_and_hare Coverage Results" MODIFIED="1579036164244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Tema_3___Hare_and_hounds$test.coverage" NAME="test Coverage Results" MODIFIED="1579101325521" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Tema_3___Hare_and_hounds$test.coverage" NAME="test Coverage Results" MODIFIED="1579109207363" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
