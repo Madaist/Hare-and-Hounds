@@ -1,6 +1,6 @@
-# TODO sa afisez numarul de mutari corect
 # TODO sa afisez bine scorul jucatorului si al calculatorului
 # TODO sa calculez scorul pentru starile intermediare cum a zis Irina
+# TODO sa declar castig pt iepure daca cateii au mutat doar vertical de 10 ori consecutiv
 
 
 import time
@@ -71,9 +71,9 @@ def verificare_castig(tabla):
     pozitii_caini = poz_caini(tabla)
 
     coloana_iepure = pozitie_iepure[0][1]
-    linie_caine1, coloana_caine1 = pozitii_caini[0][0], pozitii_caini[0][1]
-    linie_caine2, coloana_caine2 = pozitii_caini[1][0], pozitii_caini[1][1]
-    linie_caine3, coloana_caine3 = pozitii_caini[2][0], pozitii_caini[2][1]
+    coloana_caine1 = pozitii_caini[0][1]
+    coloana_caine2 = pozitii_caini[1][1]
+    coloana_caine3 = pozitii_caini[2][1]
 
     # verificam daca iepurele a ajuns in stanga catelusilor
     if coloana_iepure < coloana_caine1 and coloana_iepure < coloana_caine2 \
@@ -86,29 +86,16 @@ def verificare_castig(tabla):
         return 'i'
     if coloana_iepure == coloana_caine3 and coloana_iepure < coloana_caine2 and coloana_iepure < coloana_caine1:
         return 'i'
+
     # verificam daca iepurele e inchis
-    if pozitie_iepure == (1, 4) and coloana_caine1 == coloana_caine2 == coloana_caine3 == 3:
-        if linie_caine1 == 0 and linie_caine2 == 1 and linie_caine3 == 2:
+    if pozitie_iepure[0] == (1, 4):
+        if set(pozitii_caini) == {(0, 3), (1, 3), (2, 3)}:
             return 'c'
-        if linie_caine1 == 1 and linie_caine2 == 2 and linie_caine3 == 0:
+    if pozitie_iepure[0] == (0, 2):
+        if set(pozitii_caini) == {(0, 1), (0, 3), (1, 2)}:
             return 'c'
-        if linie_caine1 == 2 and linie_caine2 == 1 and linie_caine3 == 0:
-            return 'c'
-
-    if pozitie_iepure == (0, 2):
-        if pozitii_caini[0] == (0, 1) and pozitii_caini[1] == (0, 3) and pozitii_caini[2] == (1, 2):
-            return 'c'
-        if pozitii_caini[0] == (0, 3) and pozitii_caini[1] == (1, 2) and pozitii_caini[2] == (0, 1):
-            return 'c'
-        if pozitii_caini[0] == (1, 2) and pozitii_caini[1] == (0, 1) and pozitii_caini[2] == (0, 3):
-            return 'c'
-
-    if pozitie_iepure == (2, 2):
-        if pozitii_caini[0] == (2, 1) and pozitii_caini[1] == (1, 2) and pozitii_caini[2] == (2, 3):
-            return 'c'
-        if pozitii_caini[0] == (1, 2) and pozitii_caini[1] == (2, 3) and pozitii_caini[2] == (2, 1):
-            return 'c'
-        if pozitii_caini[0] == (2, 3) and pozitii_caini[1] == (2, 1) and pozitii_caini[2] == (1, 2):
+    if pozitie_iepure[0] == (2, 2):
+        if set(pozitii_caini) == {(2, 1), (1, 2), (2, 3)}:
             return 'c'
 
     return False
@@ -154,7 +141,8 @@ class Joc:
                     if jucator_opus == 'i':
                         pozitie_iepure = [(index, row.index('i')) for index, row in enumerate(self.matr) if 'i' in row]
                         if valid_moves_hare(pozitie_iepure[0][0], pozitie_iepure[0][1], i, j):
-                            self.creare_tabla_noua(pozitie_iepure[0][0], pozitie_iepure[0][1], i, j, jucator_opus, l_mutari)
+                            self.creare_tabla_noua(pozitie_iepure[0][0], pozitie_iepure[0][1], i, j, jucator_opus,
+                                                   l_mutari)
                     else:
                         pozitii_caini = poz_caini(self.matr)
                         linie1, col1 = pozitii_caini[0]
@@ -328,7 +316,10 @@ def afis_daca_final(stare_curenta):
         if final == "remiza":
             print("Remiza!")
         else:
-            print("A castigat " + final)
+            if final == 'i':
+                print("A castigat IEPURELE")
+            else:
+                print("Au castigat CATELUSII")
             print("Scor jucator: ", scor_jucator)
             print("Scor calculator: ", scor_calculator)
             print("Numar mutari jucator: ", nr_mutari_jucator)
@@ -363,8 +354,8 @@ def main():
             # check_if_exit() # TODO TREBUIE DECOMENTATA.
             # muta jucatorul
             if Joc.JMIN == 'c':
-                linie_de_mutat, col_de_mutat = ce_caine_mut(stare_curenta)
-                coloana, linie = obtine_linie_coloana(stare_curenta)
+                linie_de_mutat, col_de_mutat = ce_caine_mut(stare_curenta)  # pe cine mut
+                coloana, linie = obtine_linie_coloana(stare_curenta)  # unde mut
                 while not valid_moves_hounds(linie_de_mutat, col_de_mutat, linie, coloana):
                     print("Catelusii pot merge doar verticala, orizontala si diagonala de la stanga la dreapta")
                     coloana, linie = obtine_linie_coloana(stare_curenta)
@@ -381,8 +372,9 @@ def main():
                 stare_curenta.tabla_joc.matr[pozitie_iepure[0][0]][pozitie_iepure[0][1]] = Joc.GOL
             print("\nTabla dupa mutarea jucatorului")
             print(str(stare_curenta))
-            scor_jucator = stare_curenta.scor
             nr_mutari_jucator += 1
+            scor_jucator = stare_curenta.scor
+
             if not afis_daca_final(stare_curenta):
                 stare_curenta.j_curent = stare_curenta.jucator_opus()
             else:
@@ -402,7 +394,7 @@ def main():
             stare_curenta.tabla_joc = stare_actualizata.stare_aleasa.tabla_joc
             print("Tabla dupa mutarea calculatorului")
             print(str(stare_curenta))
-
+            nr_mutari_calculator += 1
             # preiau timpul in milisecunde de dupa mutare
             t_dupa = int(round(time.time() * 1000))
             print("Calculatorul a \"gandit\" timp de " + str(t_dupa - t_inainte) + " milisecunde.")
@@ -412,7 +404,6 @@ def main():
 
             # S-a realizat o mutare. Schimb jucatorul cu cel opus
             stare_curenta.j_curent = stare_curenta.jucator_opus()
-            nr_mutari_calculator += 1
             scor_calculator = stare_curenta.scor
 
 
