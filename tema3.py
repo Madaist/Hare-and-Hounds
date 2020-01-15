@@ -326,14 +326,18 @@ def afis_daca_final(stare_curenta):
                 print("A castigat IEPURELE")
             else:
                 print("Au castigat CATELUSII")
-            print("Scor jucator: ", scor_jucator)
-            print("Scor calculator: ", scor_calculator)
-            print("Numar mutari jucator: ", nr_mutari_jucator)
-            print("Numar mutari calculator: ", nr_mutari_calculator)
+            afis_scor_mutari()
 
         return True
 
     return False
+
+
+def afis_scor_mutari():
+    print("Scor jucator: ", scor_jucator)
+    print("Scor calculator: ", scor_calculator)
+    print("Numar mutari jucator: ", nr_mutari_jucator)
+    print("Numar mutari calculator: ", nr_mutari_calculator)
 
 
 def verif_mutare_verticala_matrici(matrice_anterioara, matrice_actualizata):
@@ -383,8 +387,8 @@ def main():
                 else:
                     nr_mutari_verticale = 0
                 if nr_mutari_verticale == 10:
-                    print('Iepurele a castigat. Cainii au mutat de 10 ori consecutiv pe verticala')
-                    break  # TODO MAI TREBUIE AFISAT SI SCORUL
+                    afis_castig_iepure()
+                    break
                 stare_curenta.tabla_joc.matr[linie][coloana] = Joc.JMIN
                 stare_curenta.tabla_joc.matr[linie_de_mutat][col_de_mutat] = Joc.GOL
             else:
@@ -409,23 +413,25 @@ def main():
         # --------------------------------
         else:  # jucatorul e JMAX (calculatorul)
             # Mutare calculator
-
             # preiau timpul in milisecunde de dinainte de mutare
             t_inainte = int(round(time.time() * 1000))
             if tip_algoritm == '1':
                 stare_actualizata = min_max(stare_curenta)
             else:  # tip_algoritm==2
                 stare_actualizata = alpha_beta(-500, 500, stare_curenta)
-            matrice_curenta = copy.deepcopy(stare_curenta.tabla_joc.matr)
-            stare_curenta.tabla_joc = stare_actualizata.stare_aleasa.tabla_joc
-            matrice_actualizata = copy.deepcopy(stare_curenta.tabla_joc.matr)
-            if verif_mutare_verticala_matrici(matrice_curenta, matrice_actualizata):
-                nr_mutari_verticale += 1
+            if Joc.JMAX == 'c':
+                matrice_curenta = copy.deepcopy(stare_curenta.tabla_joc.matr)
+                stare_curenta.tabla_joc = stare_actualizata.stare_aleasa.tabla_joc
+                matrice_actualizata = copy.deepcopy(stare_curenta.tabla_joc.matr)
+                if verif_mutare_verticala_matrici(matrice_curenta, matrice_actualizata):
+                    nr_mutari_verticale += 1
+                else:
+                    nr_mutari_verticale = 0
+                if nr_mutari_verticale == 10:
+                    afis_castig_iepure()
+                    break
             else:
-                nr_mutari_verticale = 0
-            if nr_mutari_verticale == 10:
-                print('Iepurele a castigat. Cainii au mutat de 10 ori consecutiv pe verticala')
-                break  # TODO MAI TREBUIE AFISAT SI SCORUL
+                stare_curenta.tabla_joc = stare_actualizata.stare_aleasa.tabla_joc
             print("Tabla dupa mutarea calculatorului")
             print(str(stare_curenta))
             nr_mutari_calculator += 1
@@ -439,6 +445,11 @@ def main():
 
             # S-a realizat o mutare. Schimb jucatorul cu cel opus
             stare_curenta.j_curent = stare_curenta.jucator_opus()
+
+
+def afis_castig_iepure():
+    print('Iepurele a castigat. Cainii au mutat de 10 ori consecutiv pe verticala')
+    afis_scor_mutari()
 
 
 def citire_jucator():

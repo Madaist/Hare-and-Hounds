@@ -1,0 +1,485 @@
+In functia de generare a mutarilor, plecam initial cu o lista vida in care vom adauga mutarile posibile.
+Iteram apoi prin matrice si verificam pentru fiecare element daca nu este ocupat cu o piesa de joc si daca nu face parte din elementele de pe pozitii invalide
+(colturile matricei, care nu fac parte din tabla de joc).
+Daca aceste doua conditii sunt satisfacute si jucatorul este iepurele, obtinem pozitia lui actuala din matrice si verificam daca elementul curent de pe
+pozitiile i si j reprezinta o mutare valida (adica este o mutare la distanta de o singura piesa). Daca da, cream o tabla noua cu noua configuratie si o adaugam in lista de mutari.
+Daca jucatorul este cainele, facem acelasi lucru, dar pentru toti cei 3 caini si cu o alta functie de validare a pozitiilor (care se asigura de faptul ca un caine trebuie
+doar sa avanseze).
+
+************************ ALPHA BETA NIVEL INCEPATOR ***************************
+Tabla initiala
+	0	1	2	3	4
+  ----------------------
+0|	 	c	#	#
+1|	c	#	#	#	i
+2|	 	c	#	#
+------------------------------
+Linia catelului de mutat = 0
+Coloana catelului de mutat = 1
+linie=0
+coloana=2
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	c	#
+1|	c	#	#	#	i
+2|	 	c	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	c	i
+1|	c	#	#	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 1.667 secunde.
+Memoria folosita pentru mutare 29143040
+Linia catelului de mutat = 0
+Coloana catelului de mutat = 2
+linie=1
+coloana=2
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	#	i
+1|	c	#	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	i	#
+1|	c	#	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 2.138 secunde.
+Memoria folosita pentru mutare 33349632
+Linia catelului de mutat = 2
+Coloana catelului de mutat = 1
+linie=1
+coloana=1
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	i	#
+1|	c	c	c	#	#
+2|	 	#	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	i	#	#
+1|	c	c	c	#	#
+2|	 	#	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 1.606 secunde.
+Memoria folosita pentru mutare 33943552
+Linia catelului de mutat = 1
+Coloana catelului de mutat = 0
+linie=2
+coloana=1
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	i	#	#
+1|	#	c	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	#	#
+1|	i	c	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 0.256 secunde.
+Memoria folosita pentru mutare 33943552
+A castigat IEPURELE
+Scor jucator:  21
+Scor calculator:  128
+Numar mutari jucator:  4
+Numar mutari calculator:  4
+Timp total rulare program: 84.408 secunde
+
+
+****************************** ALPHA BETA NIVEL MEDIU **********************
+Tabla initiala
+	0	1	2	3	4
+  ----------------------
+0|	 	c	#	#
+1|	c	#	#	#	i
+2|	 	c	#	#
+------------------------------
+Linia catelului de mutat = 0
+Coloana catelului de mutat = 1
+linie=0
+coloana=2
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	c	#
+1|	c	#	#	#	i
+2|	 	c	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	c	i
+1|	c	#	#	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 1.638 secunde.
+Memoria folosita pentru mutare 29155328
+Linia catelului de mutat = 0
+Coloana catelului de mutat = 2
+linie=1
+coloana=2
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	#	i
+1|	c	#	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	i	#
+1|	c	#	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 2.082 secunde.
+Memoria folosita pentru mutare 33300480
+Linia catelului de mutat = 2
+Coloana catelului de mutat = 1
+linie=1
+coloana=1
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	i	#
+1|	c	c	c	#	#
+2|	 	#	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	i	#	#
+1|	c	c	c	#	#
+2|	 	#	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 1.552 secunde.
+Memoria folosita pentru mutare 33943552
+Linia catelului de mutat = 1
+Coloana catelului de mutat = 0
+linie=2
+coloana=1
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	i	#	#
+1|	#	c	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	#	#
+1|	i	c	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 0.31 secunde.
+Memoria folosita pentru mutare 33943552
+A castigat IEPURELE
+Scor jucator:  21
+Scor calculator:  128
+Numar mutari jucator:  4
+Numar mutari calculator:  4
+Timp total rulare program: 56.035 secunde
+
+
+********************** ALPHA BETA NIVEL AVANSAT *****************
+Tabla initiala
+	0	1	2	3	4
+  ----------------------
+0|	 	c	#	#
+1|	c	#	#	#	i
+2|	 	c	#	#
+------------------------------
+Linia catelului de mutat = 0
+Coloana catelului de mutat = 1
+linie=0
+coloana=2
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	c	#
+1|	c	#	#	#	i
+2|	 	c	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	c	i
+1|	c	#	#	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 1.803 secunde.
+Memoria folosita pentru mutare 29159424
+Linia catelului de mutat = 0
+Coloana catelului de mutat = 2
+linie=1
+coloana=2
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	#	i
+1|	c	#	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	i	#
+1|	c	#	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 2.096 secunde.
+Memoria folosita pentru mutare 33304576
+Linia catelului de mutat = 2
+Coloana catelului de mutat = 1
+linie=1
+coloana=1
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	i	#
+1|	c	c	c	#	#
+2|	 	#	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	i	#	#
+1|	c	c	c	#	#
+2|	 	#	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 1.616 secunde.
+Memoria folosita pentru mutare 33947648
+Linia catelului de mutat = 1
+Coloana catelului de mutat = 0
+linie=2
+coloana=1
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	i	#	#
+1|	#	c	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	#	#
+1|	i	c	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 0.294 secunde.
+Memoria folosita pentru mutare 33947648
+A castigat IEPURELE
+Scor jucator:  21
+Scor calculator:  128
+Numar mutari jucator:  4
+Numar mutari calculator:  4
+Timp total rulare program: 57.524 secunde
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*********************** MINIMAX NIVEL INCEPATOR *********************
+Tabla initiala
+	0	1	2	3	4
+  ----------------------
+0|	 	c	#	#
+1|	c	#	#	#	i
+2|	 	c	#	#
+------------------------------
+Linia catelului de mutat = 0
+Coloana catelului de mutat = 1
+linie=0
+coloana=2
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	c	#
+1|	c	#	#	#	i
+2|	 	c	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	c	i
+1|	c	#	#	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 80.477 secunde.
+Memoria folosita pentru mutare 721805312
+Linia catelului de mutat = 0
+Coloana catelului de mutat = 2
+linie=1
+coloana=2
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	#	i
+1|	c	#	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	i	#
+1|	c	#	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 95.27 secunde.
+Memoria folosita pentru mutare 1029201920
+Linia catelului de mutat = 2
+Coloana catelului de mutat = 1
+linie=1
+coloana=1
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	i	#
+1|	c	c	c	#	#
+2|	 	#	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	i	#	#
+1|	c	c	c	#	#
+2|	 	#	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 108.359 secunde.
+Memoria folosita pentru mutare 1219420160
+Linia catelului de mutat = 1
+Coloana catelului de mutat = 0
+linie=2
+coloana=1
+
+Tabla dupa mutarea jucatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	i	#	#
+1|	#	c	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:c)
+
+Tabla dupa mutarea calculatorului
+	0	1	2	3	4
+  ----------------------
+0|	 	#	#	#
+1|	i	c	c	#	#
+2|	 	c	#	#
+------------------------------
+(Jucator curent:i)
+
+Calculatorul a "gandit" timp de 12.83 secunde.
+Memoria folosita pentru mutare 1219420160
+A castigat IEPURELE
+Scor jucator:  21
+Scor calculator:  128
+Numar mutari jucator:  4
+Numar mutari calculator:  4
+Timp total rulare program: 370.306 secunde
+
+
+

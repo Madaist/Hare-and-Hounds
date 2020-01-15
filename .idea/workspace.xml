@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd3370b8-7c5d-4d31-91f4-da5d49c9c389" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/documentatie.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tema3.py" beforeDir="false" afterPath="$PROJECT_DIR$/tema3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +156,7 @@
       <workItem from="1578847886248" duration="71000" />
       <workItem from="1578948318552" duration="1776000" />
       <workItem from="1578991211831" duration="1745000" />
-      <workItem from="1579091720148" duration="13696000" />
+      <workItem from="1579091720148" duration="21511000" />
     </task>
     <servers />
   </component>
@@ -184,22 +184,22 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="421" y="97" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1578848138524" />
-    <state width="1237" height="252" key="GridCell.Tab.0.bottom" timestamp="1579110403396">
+    <state width="1237" height="317" key="GridCell.Tab.0.bottom" timestamp="1579121613602">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="252" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1579110403396" />
-    <state width="1237" height="252" key="GridCell.Tab.0.center" timestamp="1579110403396">
+    <state width="1237" height="317" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1579121613602" />
+    <state width="1237" height="317" key="GridCell.Tab.0.center" timestamp="1579121613601">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="252" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1579110403396" />
-    <state width="1237" height="252" key="GridCell.Tab.0.left" timestamp="1579110403396">
+    <state width="1237" height="317" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1579121613601" />
+    <state width="1237" height="317" key="GridCell.Tab.0.left" timestamp="1579121613601">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="252" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1579110403396" />
-    <state width="1237" height="252" key="GridCell.Tab.0.right" timestamp="1579110403396">
+    <state width="1237" height="317" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1579121613601" />
+    <state width="1237" height="317" key="GridCell.Tab.0.right" timestamp="1579121613602">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="252" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1579110403396" />
+    <state width="1237" height="317" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1579121613602" />
     <state width="1237" height="222" key="GridCell.Tab.1.bottom" timestamp="1579101898767">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -246,7 +246,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Tema_3___Hare_and_hounds$tema3.coverage" NAME="tema3 Coverage Results" MODIFIED="1579109933316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Tema_3___Hare_and_hounds$tema3.coverage" NAME="tema3 Coverage Results" MODIFIED="1579121613573" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Tema_3___Hare_and_hounds$hounds_and_hare.coverage" NAME="hounds_and_hare Coverage Results" MODIFIED="1579036164244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Tema_3___Hare_and_hounds$test.coverage" NAME="test Coverage Results" MODIFIED="1579109207363" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
