@@ -6,6 +6,13 @@ pozitiile i si j reprezinta o mutare valida (adica este o mutare la distanta de 
 Daca jucatorul este cainele, facem acelasi lucru, dar pentru toti cei 3 caini si cu o alta functie de validare a pozitiilor (care se asigura de faptul ca un caine trebuie
 doar sa avanseze).
 
+
+Pentru estimarea scorului, am calculat numarul de linii deschise pentru iepure si numarul de linii deschise pentru caini. Linie deschisa pentru iepure inseamna
+pe unde poate trece de caini. Linie deschisa pentru caini inseamna pe unde se poate apropia de iepure(fara sa il depaseasca), adica sa vina din stanga.
+Astfel, in functia estimeaza_scor() am facut diferenta intre liniile deschise ale lui JMAX si liniie deschise ale lui JMIN.
+
+
+
 ************************ ALPHA BETA NIVEL INCEPATOR ***************************
 Tabla initiala
 	0	1	2	3	4

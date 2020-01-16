@@ -1,6 +1,3 @@
-# TODO sa afisez bine scorul jucatorului si al calculatorului
-# TODO sa calculez scorul pentru starile intermediare cum a zis Irina
-
 import time
 import copy
 import psutil
@@ -116,16 +113,16 @@ def poz_caini(tabla):
     return pozitii_caini
 
 
-def dist_iepure_caini(tabla):
-    pozitie_iepure = [(index, row.index('i')) for index, row in enumerate(tabla) if 'i' in row]
-    pozitii_caini = poz_caini(tabla)
-
-    # calculam distantele Manhattan de la iepure la caini
-    d1 = d_manhattan(pozitie_iepure[0], pozitii_caini[0])
-    d2 = d_manhattan(pozitie_iepure[0], pozitii_caini[1])
-    d3 = d_manhattan(pozitie_iepure[0], pozitii_caini[2])
-
-    return d1 + d2 + d3
+# def dist_iepure_caini(tabla):
+#     pozitie_iepure = [(index, row.index('i')) for index, row in enumerate(tabla) if 'i' in row]
+#     pozitii_caini = poz_caini(tabla)
+#
+#     # calculam distantele Manhattan de la iepure la caini
+#     d1 = d_manhattan(pozitie_iepure[0], pozitii_caini[0])
+#     d2 = d_manhattan(pozitie_iepure[0], pozitii_caini[1])
+#     d3 = d_manhattan(pozitie_iepure[0], pozi tii_caini[2])
+#
+#     return d1 + d2 + d3
 
 
 class Joc:
@@ -169,22 +166,61 @@ class Joc:
         matr_tabla_noua[linie_curenta][col_curenta] = Joc.GOL
         l_mutari.append(Joc(matr_tabla_noua))
 
-    # def linii_deschise_iepure(self, lista, jucator):
-    #
-    #     return 0
+    # linie deschisa pentru iepure e pe unde poate trece de caini
+    def linii_deschise_iepure(self):
+        pozitie_iepure = [(index, row.index('i')) for index, row in enumerate(self.matr) if 'i' in row][0]
+        linii = 0
+        linie_iepure, col_iepure = pozitie_iepure[0], pozitie_iepure[1]
+        # verificam daca iepurele poate muta pe orizontala spre stanga
+        if linie_iepure in range(0,3) and col_iepure-1 in range (0,5):
+            if (linie_iepure, col_iepure - 1) not in illegal_moves and self.matr[linie_iepure][col_iepure - 1] == Joc.GOL:
+                linii += 1
+        # verificam daca iepurele poate muta pe diagonala spre stanga in sus
+        if linie_iepure-1 in range(0, 3) and col_iepure - 1 in range(0, 5):
+            if (linie_iepure-1, col_iepure-1) not in illegal_moves and self.matr[linie_iepure-1][col_iepure-1] == Joc.GOL:
+                linii += 1
 
-    # def estimeaza_scor(self, adancime):
-    #     t_final = self.final()
-    #     # if (adancime==0):
-    #     if t_final == self.__class__.JMAX:
-    #         return 99 + adancime
-    #     elif t_final == self.__class__.JMIN:
-    #         return -99 - adancime
-    #     else:
-    #         # aici ma gandesc ca ar trebui sa returnez distanta daca jucatorul e JMAX (ca sa fie cat mai mare)
-    #         # si sa returnez -distanta daca jucatorul e JMIN (CA sa fie cat mai mica)
-    #         # dar in clasa Joc eu nu am acces la jucatorul curent
-    #         return self.dist_iepure_caini()
+        # verificam daca iepurele poate muta pe diagonala spre stanga in jos
+        if linie_iepure+1 in range(0, 3) and col_iepure - 1 in range(0, 5):
+            if (linie_iepure + 1, col_iepure - 1) not in illegal_moves and self.matr[linie_iepure + 1][col_iepure - 1] == Joc.GOL:
+                linii += 1
+
+        return linii
+
+    # linie deschisa pentru caine e pe unde se poate apropia de iepure(fara sa il depaseasca)
+    # adica sa vina din stanga
+    def linii_deschise_caini(self):
+        linii = 0
+        pozitii_caini = poz_caini(self.matr)
+        pozitie_iepure = [(index, row.index('i')) for index, row in enumerate(self.matr) if 'i' in row][0]
+        linie_iepure, col_iepure = pozitie_iepure[0], pozitie_iepure[1]
+        for i in range(len(self.matr)):
+            for j in range(len(self.matr[i])):
+                if self.matr[i][j] == self.__class__.GOL and (i, j) not in illegal_moves:
+                    if j < col_iepure:
+                        linie1, col1 = pozitii_caini[0]
+                        linie2, col2 = pozitii_caini[1]
+                        linie3, col3 = pozitii_caini[2]
+                        if valid_moves_hounds(linie1, col1, i, j):
+                            linii += 1
+                        if valid_moves_hounds(linie2, col2, i, j):
+                            linii += 1
+                        if valid_moves_hounds(linie3, col3, i, j):
+                            linii += 1
+        return linii
+
+    def estimeaza_scor(self, adancime):
+        t_final = self.final()
+        # if (adancime==0):
+        if t_final == self.__class__.JMAX:
+            return 99 + adancime
+        elif t_final == self.__class__.JMIN:
+            return -99 - adancime
+        else:
+            if self.__class__.JMAX == 'c':
+                return self.linii_deschise_caini() - self.linii_deschise_iepure()
+            else:
+                return self.linii_deschise_iepure() - self.linii_deschise_caini()
 
     def __str__(self):
         sir = '\t0\t1\t2\t3\t4\n'
@@ -219,14 +255,15 @@ class Stare:
         # cea mai buna mutare din lista de mutari posibile pentru jucatorul curent
         self.stare_aleasa = None
 
-    def estimeaza_scor(self, adancime):
-        t_final = Joc.final(self.tabla_joc)
-        if t_final == Joc.JMAX:
-            return 99 + adancime
-        elif t_final == Joc.JMIN:
-            return -99 - adancime
-        else:
-            return dist_iepure_caini(self.tabla_joc.matr)  # TODO aici trebuie schimbat cu ce a zis Irina
+    # def estimeaza_scor(self, adancime):
+    #     t_final = Joc.final(self.tabla_joc)
+    #     if t_final == Joc.JMAX:
+    #         return 99 + adancime
+    #     elif t_final == Joc.JMIN:
+    #         return -99 - adancime
+    #     else:
+    #         # return dist_iepure_caini(self.tabla_joc.matr)
+
 
     def jucator_opus(self):
         if self.j_curent == Joc.JMIN:
@@ -251,7 +288,7 @@ class Stare:
 
 def min_max(stare):
     if stare.adancime == 0 or stare.tabla_joc.final():
-        stare.scor = stare.estimeaza_scor(stare.adancime)
+        stare.scor = stare.tabla_joc.estimeaza_scor(stare.adancime)
         return stare
 
     # calculez toate mutarile posibile din starea curenta
@@ -273,7 +310,7 @@ def min_max(stare):
 
 def alpha_beta(alpha, beta, stare):
     if stare.adancime == 0 or stare.tabla_joc.final():
-        stare.scor = stare.estimeaza_scor(stare.adancime)
+        stare.scor = stare.tabla_joc.estimeaza_scor(stare.adancime)
         return stare
 
     if alpha > beta:
@@ -437,7 +474,7 @@ def main():
             nr_mutari_calculator += 1
             # preiau timpul in milisecunde de dupa mutare
             t_dupa = int(round(time.time() * 1000))
-            print("Calculatorul a \"gandit\" timp de " + str((t_dupa - t_inainte)/1000) + " secunde.")
+            print("Calculatorul a \"gandit\" timp de " + str((t_dupa - t_inainte) / 1000) + " secunde.")
             print("Memoria folosita pentru mutare", maxMem)
             scor_calculator += stare_curenta.scor
             if afis_daca_final(stare_curenta):
@@ -546,4 +583,4 @@ if __name__ == "__main__":
     main()
     t_final = time.time()
     milis = round(1000 * (t_final - t_initial))
-    print("Timp total rulare program: {} secunde".format(milis/1000))
+    print("Timp total rulare program: {} secunde".format(milis / 1000))
